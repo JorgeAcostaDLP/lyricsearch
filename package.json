@@ -1,0 +1,24 @@
+{
+  "name": "lyricsearch",
+  "version": "1.0.0",
+  "description": "search for lyrics using speech to text",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon index.js"
+  },
+  "author": "Jorge Acosta",
+  "license": "ISC",
+  "dependencies": {
+    "ajax": "0.0.4",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "html-template-tag": "^2.0.0",
+    "marked": "^0.3.12",
+    "morgan": "^1.9.0",
+    "pg": "^6.4.2",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^4.44.0",
+    "volleyball": "^1.5.1"
+  }
+}

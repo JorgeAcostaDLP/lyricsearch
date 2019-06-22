@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { gotLyrics } from './store/index';
+import { Button } from 'semantic-ui-react';
 const SpeechRecognition = window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 
@@ -97,7 +98,7 @@ class ListenButton extends Component {
           interimTranscript += transcript;
         }
       }
-      document.getElementById('interim').value = interimTranscript;
+      document.getElementById('search').value = interimTranscript;
       // document.getElementById('lyrics').value = this.state.lyrics;
       // document.getElementById('name').value = this.state.name;
       // document.getElementById('artist').value = this.state.artist;
@@ -139,10 +140,13 @@ class ListenButton extends Component {
     // }
     return (
       <div id="background">
-        <button type="button" id="microphone-btn" onClick={this.toggleListen}>
-          RECORD
-        </button>
-        <textarea id="interim">Search</textarea>
+        <Button primary id="microphone-btn" onClick={this.toggleListen}>
+          Speak
+        </Button>
+        <Button primary id="search-btn" onClick={this.handleSearch}>
+          SEARCH
+        </Button>
+        <textarea id="search">Search</textarea>
         <textarea
           id="artist"
           rows="20"
@@ -179,9 +183,6 @@ class ListenButton extends Component {
         ) : (
           <li />
         )}
-        <button type="button" id="search-btn" onClick={this.handleSearch}>
-          SEARCH
-        </button>
       </div>
     );
   }

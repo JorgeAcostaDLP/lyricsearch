@@ -3,25 +3,27 @@ const { Lyric } = require('../db/models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-router.get('/', async (req, res, next) => {
-  let partialLyric = req.partialLyric;
+router.get('/:lyricFragment', async (req, res, next) => {
+  let partialLyric = req.params.lyricFragment.slice(1).toLowerCase();
 
   try {
-    const lyrics = await Lyric.findAndCountAll({
+    const response = await Lyric.findAndCountAll({
       where: {
         lyrics: {
           [Op.like]: `%${partialLyric}%`,
+          // [Op.like]: `%blame it on the sunshine%`,
         },
+        // artist: 'Green Day',
       },
-      attributes: ['lyrics', 'name', 'artist'],
+      attributes: ['name', 'artist', 'lyrics'],
     });
-    res.json(lyrics);
+    res.json(response);
+    console.log(response);
   } catch (error) {
     next(error);
   }
 });
 
 // router.get('/', (req, res) => {
-//   res.send('Hello');
-// });
+
 module.exports = router;

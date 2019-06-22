@@ -33,7 +33,7 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).send(err.message || 'Internal server error.');
 });
 
-const PORT = 4080;
+const PORT = 8080;
 const { db } = require('./server/db/models');
 
 db.sync().then(() => {

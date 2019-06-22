@@ -162,10 +162,11 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ListenButton).call(this));
     _this.state = {
       listening: false,
-      lyrics: {},
-      artist: {},
-      name: {},
-      search: {}
+      lyrics: '',
+      artist: '',
+      name: '',
+      search: '',
+      other: []
     };
     _this.toggleListen = _this.toggleListen.bind(_assertThisInitialized(_this));
     _this.handleListen = _this.handleListen.bind(_assertThisInitialized(_this));
@@ -177,10 +178,11 @@ function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.setState({
-        lyrics: 'song',
-        search: '',
-        artist: 'lyric',
-        name: 'artist'
+        lyrics: 'Song Name',
+        search: 'Search Term',
+        artist: 'Lyric',
+        name: 'Artist',
+        other: ['Other Songs']
       });
     }
   }, {
@@ -197,13 +199,18 @@ function (_Component) {
     value: function handleSearch() {
       this.props.gotLyrics(this.state.search);
 
-      if (this.props.lyrics.rows.length > 0) {
+      if (this.props.lyrics.rows.length) {
         var check = this.props.lyrics.rows[0].lyrics;
         console.log('lyrics.rows[0][name] = ', check);
+        var others = [];
+        this.props.lyrics.rows ? this.props.lyrics.rows.map(function (elem) {
+          return others.push(elem.name);
+        }) : others = ['other songs'];
         this.setState({
           lyrics: this.props.lyrics.rows[0].artist,
           name: this.props.lyrics.rows[0].name,
-          artist: this.props.lyrics.rows[0].lyrics
+          artist: this.props.lyrics.rows[0].lyrics,
+          other: others
         });
       } else {
         this.setState({
@@ -320,7 +327,15 @@ function (_Component) {
         cols: "20",
         wrap: "hard",
         value: this.state.lyrics
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }), this.state.search ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        id: "othersongs",
+        columns: "20",
+        rows: "30"
+      }, ' ', "Other Songs that feature: ", this.state.search, ' ') : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, " Other Songs "), this.state.other.length > 1 ? this.state.other.map(function (elem) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          key: elem
+        }, elem);
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         id: "search-btn",
         onClick: this.handleSearch

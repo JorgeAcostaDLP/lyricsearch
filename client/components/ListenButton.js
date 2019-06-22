@@ -13,10 +13,11 @@ class ListenButton extends Component {
     super();
     this.state = {
       listening: false,
-      lyrics: {},
-      artist: {},
-      name: {},
-      search: {},
+      lyrics: '',
+      artist: '',
+      name: '',
+      search: '',
+      other: [],
     };
     this.toggleListen = this.toggleListen.bind(this);
     this.handleListen = this.handleListen.bind(this);
@@ -24,10 +25,11 @@ class ListenButton extends Component {
   }
   componentDidMount() {
     this.setState({
-      lyrics: 'song',
-      search: '',
-      artist: 'lyric',
-      name: 'artist',
+      lyrics: 'Song Name',
+      search: 'Search Term',
+      artist: 'Lyric',
+      name: 'Artist',
+      other: ['Other Songs'],
     });
   }
   toggleListen() {
@@ -42,13 +44,18 @@ class ListenButton extends Component {
   handleSearch() {
     this.props.gotLyrics(this.state.search);
 
-    if (this.props.lyrics.rows.length > 0) {
+    if (this.props.lyrics.rows.length) {
       let check = this.props.lyrics.rows[0].lyrics;
       console.log('lyrics.rows[0][name] = ', check);
+      let others = [];
+      this.props.lyrics.rows
+        ? this.props.lyrics.rows.map(elem => others.push(elem.name))
+        : (others = ['other songs']);
       this.setState({
         lyrics: this.props.lyrics.rows[0].artist,
         name: this.props.lyrics.rows[0].name,
         artist: this.props.lyrics.rows[0].lyrics,
+        other: others,
       });
     } else {
       this.setState({
@@ -157,6 +164,21 @@ class ListenButton extends Component {
           wrap="hard"
           value={this.state.lyrics}
         />
+        {this.state.search ? (
+          <ul id="othersongs" columns="20" rows="30">
+            {' '}
+            Other Songs that feature: {this.state.search}{' '}
+          </ul>
+        ) : (
+          <ul> Other Songs </ul>
+        )}
+        {this.state.other.length > 1 ? (
+          this.state.other.map(elem => {
+            return <li key={elem}>{elem}</li>;
+          })
+        ) : (
+          <li />
+        )}
         <button type="button" id="search-btn" onClick={this.handleSearch}>
           SEARCH
         </button>

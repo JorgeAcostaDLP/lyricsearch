@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { gotLyrics } from './store/index';
-import { Button } from 'semantic-ui-react';
+import { Label, Header, Button, Container, Segment } from 'semantic-ui-react';
+import SearchLabel from './SearchLabel';
+import SongItem from './SongItem';
+import OtherSongsList from './OtherSongsList';
 const SpeechRecognition = window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 
@@ -27,10 +30,10 @@ class ListenButton extends Component {
   componentDidMount() {
     this.setState({
       lyrics: 'Song Name',
-      search: 'Search Term',
+      search: 'the search term',
       artist: 'Lyric',
       name: 'Artist',
-      other: ['Other Songs'],
+      other: [''],
     });
   }
   toggleListen() {
@@ -51,7 +54,7 @@ class ListenButton extends Component {
       let others = [];
       this.props.lyrics.rows
         ? this.props.lyrics.rows.map(elem => others.push(elem.name))
-        : (others = ['other songs']);
+        : (others = ['']);
       this.setState({
         lyrics: this.props.lyrics.rows[0].artist,
         name: this.props.lyrics.rows[0].name,
@@ -99,9 +102,6 @@ class ListenButton extends Component {
         }
       }
       document.getElementById('search').value = interimTranscript;
-      // document.getElementById('lyrics').value = this.state.lyrics;
-      // document.getElementById('name').value = this.state.name;
-      // document.getElementById('artist').value = this.state.artist;
 
       const transcriptArr = finalTranscript.split(' ');
       const stopCmd = transcriptArr.slice(-3, -1);
@@ -112,7 +112,6 @@ class ListenButton extends Component {
         recognition.onend = () => {
           console.log('stopped cuz command');
           const finalText = transcriptArr.slice(0, -3).join(' ');
-          // document.getElementById('final').innerHTML = this.state.lyrics;
         };
       } else {
         console.log(finalTranscript);
@@ -120,7 +119,7 @@ class ListenButton extends Component {
         document.getElementById('background').style = `background-color:${
           stopCmd[0]
         }`;
-        // finalTranscript = '';
+        finalTranscript = '';
       }
     };
 
@@ -139,51 +138,32 @@ class ListenButton extends Component {
     //   console.log('lyrics.rows[0][name] = ', check);
     // }
     return (
-      <div id="background">
+      <Segment padded raised inverted floating>
+        <Header inverted-color="red">WELCOME TO LYRIC SEARCH</Header>
         <Button primary id="microphone-btn" onClick={this.toggleListen}>
-          Speak
+          SPEAK
         </Button>
         <Button primary id="search-btn" onClick={this.handleSearch}>
           SEARCH
         </Button>
-        <textarea id="search">Search</textarea>
-        <textarea
-          id="artist"
-          rows="20"
-          cols="50"
-          wrap="hard"
-          value={this.state.artist}
-        />
-        <textarea
-          id="name"
-          rows="2"
-          cols="12"
-          wrap="hard"
-          value={this.state.name}
-        />
-        <textarea
-          id="lyrics"
-          rows="2"
-          cols="20"
-          wrap="hard"
-          value={this.state.lyrics}
-        />
-        {this.state.search ? (
-          <ul id="othersongs" columns="20" rows="30">
-            {' '}
-            Other Songs that feature: {this.state.search}{' '}
-          </ul>
+        <Segment raised>
+          <SearchLabel search={this.state.search} />
+          {/* <textarea id="search">Search</textarea> */}
+          <SongItem
+            artist={this.state.artist}
+            name={this.state.lyrics}
+            lyrics={this.state.name}
+          />
+        </Segment>
+        {this.state.search !== 'the search term' ? (
+          <OtherSongsList
+            search={this.state.search}
+            others={this.state.other}
+          />
         ) : (
-          <ul> Other Songs </ul>
+          <Label color="red">Speak into the app to search for lyrics</Label>
         )}
-        {this.state.other.length > 1 ? (
-          this.state.other.map(elem => {
-            return <li key={elem}>{elem}</li>;
-          })
-        ) : (
-          <li />
-        )}
-      </div>
+      </Segment>
     );
   }
 }

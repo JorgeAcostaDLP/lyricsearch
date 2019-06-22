@@ -5,7 +5,7 @@ const App = () => {
   return (
     <div>
       <ListenButton />
-      <h1>APP</h1>
+      <h1 />
     </div>
   );
 };

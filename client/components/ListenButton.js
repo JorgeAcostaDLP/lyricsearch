@@ -22,20 +22,22 @@ class ListenButton extends Component {
       name: '',
       search: '',
       other: [],
+      link: [],
     };
     this.toggleListen = this.toggleListen.bind(this);
     this.handleListen = this.handleListen.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
-  componentDidMount() {
-    this.setState({
-      lyrics: 'Song Name',
-      search: 'the search term',
-      artist: 'Lyric',
-      name: 'Artist',
-      other: [''],
-    });
-  }
+  // componentDidMount() {
+  //   this.setState({
+  //     lyrics: 'Song Name',
+  //     search: 'the search term',
+  //     artist: 'Lyric',
+  //     name: 'Artist',
+  //     other: [''],
+  //     link: [''],
+  //   });
+  // }
   toggleListen() {
     this.setState(
       (state, props) => ({
@@ -50,16 +52,21 @@ class ListenButton extends Component {
 
     if (this.props.lyrics.rows.length) {
       let check = this.props.lyrics.rows[0].lyrics;
-      console.log('lyrics.rows[0][name] = ', check);
       let others = [];
+      let links = [];
       this.props.lyrics.rows
-        ? this.props.lyrics.rows.map(elem => others.push(elem.name))
-        : (others = ['']);
+        ? this.props.lyrics.rows.map(elem => {
+            others.push(elem.name);
+            links.push(elem.link);
+            console.log(elem);
+          })
+        : ((others = ['']), (links = ['']));
       this.setState({
         lyrics: this.props.lyrics.rows[0].artist,
         name: this.props.lyrics.rows[0].name,
         artist: this.props.lyrics.rows[0].lyrics,
         other: others,
+        link: links,
       });
     } else {
       this.setState({
@@ -68,6 +75,7 @@ class ListenButton extends Component {
         artist: 'lyric',
       });
     }
+    console.log('WPWPWPWPWPW', this.state.link);
   }
 
   handleListen() {
@@ -151,6 +159,7 @@ class ListenButton extends Component {
           <OtherSongsList
             search={this.state.search}
             others={this.state.other}
+            links={this.state.link}
           />
         ) : (
           <Label color="red">Speak into the app to search for lyrics</Label>

@@ -15,7 +15,7 @@ router.get('/:lyricFragment', async (req, res, next) => {
         },
         // artist: 'Green Day',
       },
-      attributes: ['name', 'artist', 'lyrics'],
+      attributes: ['name', 'artist', 'lyrics', 'link'],
     });
     res.json(response);
     console.log(response);

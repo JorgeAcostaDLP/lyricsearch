@@ -27,7 +27,6 @@ export const gotLyrics = lyricFragment => async dispatch => {
   try {
     let res = await axios.get(`/api/:${lyricFragment}`);
     dispatch(getLyrics(res.data));
-    console.log('RARARA', res.data);
   } catch (error) {
     console.log(error);
   }

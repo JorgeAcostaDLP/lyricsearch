@@ -10,7 +10,7 @@
   "scripts": {
     "test": "test",
     "start": "nodemon index.js, nf start",
-    "build": "bower install && grunt build"
+    "build": "webpack ==mode production"
   },
   "author": "Jorge Acosta",
   "license": "ISC",

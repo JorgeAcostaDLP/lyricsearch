@@ -8,7 +8,7 @@
   },
   "main": "app.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon app.js"
   },
   "author": "Jorge Acosta",
   "license": "ISC",

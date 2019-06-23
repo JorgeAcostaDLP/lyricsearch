@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import App from './app';
 import { store } from './components/store/index';
 // establishes socket connection
-import 'semantic-ui-css/semantic.min.css';
 
 ReactDOM.render(
   <Provider store={store}>

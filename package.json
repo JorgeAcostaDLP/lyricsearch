@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "test": "test",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js, nf start",
+    "build": "bower install && grunt build"
   },
   "author": "Jorge Acosta",
   "license": "ISC",

@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
-    "start": "nodemon index.js, nf start",
+    "start": "nodemon index.js",
     "build": "webpack ==mode production"
   },
   "author": "Jorge Acosta",
@@ -23,6 +23,7 @@
     "body-parser": "^1.19.0",
     "cli": "^1.0.1",
     "express": "^4.17.1",
+    "gulp": "^4.0.2",
     "html-template-tag": "^2.0.0",
     "marked": "^0.3.12",
     "morgan": "^1.9.0",

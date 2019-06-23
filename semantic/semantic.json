@@ -15,7 +15,7 @@
     },
     "clean": "dist/"
   },
-  "permission": false,
+  "permission": true,
   "autoInstall": true,
   "rtl": false,
   "version": "2.4.2"

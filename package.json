@@ -9,8 +9,7 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
-    "start": "nodemon index.js",
-    "build": "webpack ==mode production"
+    "start": "nodemon index.js"
   },
   "author": "Jorge Acosta",
   "license": "ISC",
@@ -37,7 +36,6 @@
     "redux-logger": "^3.0.6",
     "redux-store": "0.0.0",
     "redux-thunk": "^2.3.0",
-    "semantic-ui": "^2.4.2",
     "semantic-ui-react": "^0.87.2",
     "sequelize": "^4.44.0",
     "volleyball": "^1.5.1"

@@ -129,14 +129,6 @@ class ListenButton extends Component {
   }
 
   render() {
-    // console.log('just set final state search', this.state);
-    // this.setState({ search: finalTranscript });
-    // const { lyrics } = this.props;
-    // console.log('this is lyrivs', lyrics);
-    // if (this.props.lyrics.rows) {
-    //   let check = lyrics.rows[0].name;
-    //   console.log('lyrics.rows[0][name] = ', check);
-    // }
     return (
       <Segment padded raised inverted floating>
         <Header inverted-color="red">WELCOME TO LYRIC SEARCH</Header>

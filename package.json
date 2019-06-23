@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "search for lyrics using speech to text",
   "engines": {
-    "node": "10.15.3"
+    "node": "10.15.3",
+    "npm": "6.9.0"
   },
   "main": "index.js",
   "scripts": {

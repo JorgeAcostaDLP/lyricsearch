@@ -22,22 +22,15 @@ class ListenButton extends Component {
       name: '',
       search: '',
       other: [],
+      othernames: [],
       link: [],
     };
     this.toggleListen = this.toggleListen.bind(this);
     this.handleListen = this.handleListen.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
-  // componentDidMount() {
-  //   this.setState({
-  //     lyrics: 'Song Name',
-  //     search: 'the search term',
-  //     artist: 'Lyric',
-  //     name: 'Artist',
-  //     other: [''],
-  //     link: [''],
-  //   });
-  // }
+
   toggleListen() {
     this.setState(
       (state, props) => ({
@@ -47,17 +40,33 @@ class ListenButton extends Component {
     );
   }
 
+  handleReset() {
+    this.setState({
+      lyrics: 'Song Name',
+      search: 'the search term',
+      artist: 'Lyric',
+      name: 'Artist',
+      other: [''],
+      link: [''],
+      othernames: [''],
+      link: [''],
+    });
+  }
+
   handleSearch() {
     this.props.gotLyrics(this.state.search);
 
-    if (this.props.lyrics.rows.length) {
+    if (this.props.lyrics.rows) {
       let check = this.props.lyrics.rows[0].lyrics;
       let others = [];
       let links = [];
+      let othernamese = [];
       this.props.lyrics.rows
         ? this.props.lyrics.rows.map(elem => {
             others.push(elem.name);
             links.push(elem.link);
+            othernamese.push(elem.artist);
+
             console.log(elem);
           })
         : ((others = ['']), (links = ['']));
@@ -67,6 +76,7 @@ class ListenButton extends Component {
         artist: this.props.lyrics.rows[0].lyrics,
         other: others,
         link: links,
+        othernames: othernamese,
       });
     } else {
       this.setState({
@@ -75,7 +85,7 @@ class ListenButton extends Component {
         artist: 'lyric',
       });
     }
-    console.log('WPWPWPWPWPW', this.state.link);
+    // console.log('WPWPWPWPWPW', this.state.link)
   }
 
   handleListen() {
@@ -96,7 +106,7 @@ class ListenButton extends Component {
     recognition.onstart = () => {
       console.log('Listening');
     };
-    // let finalTranscript = '';
+
     recognition.onresult = event => {
       let interimTranscript = '';
       let finalTranscript = '';
@@ -146,9 +156,12 @@ class ListenButton extends Component {
         <Button primary id="search-btn" onClick={this.handleSearch}>
           SEARCH
         </Button>
+        <Button inverted color="red" onClick={this.handleReset}>
+          RESET
+        </Button>
         <Segment raised>
           <SearchLabel search={this.state.search} />
-          {/* <textarea id="search">Search</textarea> */}
+
           <SongItem
             artist={this.state.artist}
             name={this.state.lyrics}
@@ -160,6 +173,7 @@ class ListenButton extends Component {
             search={this.state.search}
             others={this.state.other}
             links={this.state.link}
+            othernames={this.state.othernames}
           />
         ) : (
           <Label color="red">Speak into the app to search for lyrics</Label>

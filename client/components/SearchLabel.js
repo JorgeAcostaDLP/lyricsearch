@@ -1,9 +1,8 @@
 import React from 'react';
 import { Label } from 'semantic-ui-react';
-// import {Link} from 'react-router-dom'
 
 const SearchLabel = props => {
-  const search = props.search || 'search';
+  const search = props.search.toUpperCase() || 'SEARCH';
 
   return (
     <Label as="a" color="red" ribbon>

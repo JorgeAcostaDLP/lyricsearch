@@ -5,16 +5,19 @@ const OtherSongsList = props => {
   const others = props.others || [];
   const search = props.search;
   const links = props.links || [];
+  const othernames = props.othernames || [];
   return (
     <Segment raised>
-      <Label color="teal">Other songs that feature: "{search}"</Label>
+      <Label color="red">SONGS THAT FEATURE: "{search.toUpperCase()}"</Label>
       <List divided verticalAlign="middle">
         {others.map((song, index) => {
           let linky = 'http://www.lyricsfreak.com' + links[index];
           return (
             <List.Item key={song}>
               <List.Content>
-                <a href={linky}>{song}</a>
+                <a href={linky}>
+                  {song} by {othernames[index]}
+                </a>
               </List.Content>
             </List.Item>
           );

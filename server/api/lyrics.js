@@ -11,9 +11,7 @@ router.get('/:lyricFragment', async (req, res, next) => {
       where: {
         lyrics: {
           [Op.like]: `%${partialLyric}%`,
-          // [Op.like]: `%blame it on the sunshine%`,
         },
-        // artist: 'Green Day',
       },
       attributes: ['name', 'artist', 'lyrics', 'link'],
     });
@@ -23,7 +21,5 @@ router.get('/:lyricFragment', async (req, res, next) => {
     next(error);
   }
 });
-
-// router.get('/', (req, res) => {
 
 module.exports = router;
